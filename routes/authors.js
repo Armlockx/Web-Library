@@ -3,6 +3,7 @@ const router = express.Router();
 const Author = require('../models/author')
 const Book = require('../models/book')
 
+// Show all Authors route
 router.get('/', async (req, res) => {
     let searchOptions = {};
     if(req.query.name != null && req.query.name !== '') {
@@ -20,10 +21,12 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Show new Author page route
 router.get('/new', (req, res) => {
     res.render('authors/new', { author: new Author() });
 });
 
+// Add new Author route
 router.post('/', async (req, res) => {
     const author = new Author({
         name: req.body.name
@@ -40,7 +43,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-
+// Get Author by Id route
 router.get('/:id', async (req, res) => {
     try {
         const author = await Author.findById(req.params.id);
@@ -55,6 +58,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// Show edit Author by Id route
 router.get('/:id/edit', async (req, res) => {
     try{
         const author = await Author.findById(req.params.id);
@@ -64,6 +68,7 @@ router.get('/:id/edit', async (req, res) => {
     }
 });
 
+// Update Author by Id route
 router.put('/:id', async (req, res) => {
     let author
     try {
@@ -83,6 +88,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+// Delete Author route
 router.delete('/:id', async (req, res) => {
     let author
     try {
